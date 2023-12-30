@@ -55,7 +55,7 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <DirectionsRunIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} onClick={() => onNavBarClick(AppPageType.HOME)} />
+                    <DirectionsRunIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} onClick={() => onNavBarClick(AppPageType.HOME)} style={{ cursor: "pointer" }} />
                     <Typography
                         variant="h6"
                         noWrap
@@ -109,7 +109,7 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                             </MenuItem>}
                         </Menu>
                     </Box>
-                    <DirectionsRunIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                    <DirectionsRunIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} style={{ cursor: "pointer" }} />
                     <Typography
                         variant="h5"
                         noWrap

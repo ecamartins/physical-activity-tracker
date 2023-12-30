@@ -1,3 +1,4 @@
+import { CssBaseline } from "@mui/material"
 import { Session } from "@supabase/supabase-js"
 import { useEffect, useState } from "react"
 import { ActivityLog } from "./ActivityLog"
@@ -8,6 +9,7 @@ import { Logout } from "./Logout"
 import NavBar from "./NavBar"
 import { Profile } from "./Profile"
 import { supabase } from "./supabaseClient"
+import "./App.css";
 
 export enum AppPageType {
     HOME,
@@ -34,7 +36,8 @@ function WebsiteWrapper() {
 
     return (
         <div className="app-wrapper">
-            <NavBar showProfile={!session} onNavBarClick={(newPage: AppPageType) => setPage(newPage)} />
+            <CssBaseline />
+            <NavBar showProfile={!!session} onNavBarClick={(newPage: AppPageType) => setPage(newPage)} />
             <HomePage show={page === AppPageType.HOME} />
             <Profile show={page === AppPageType.PROFILE} />
             <LeaderBoard show={page === AppPageType.LEADERBOARD} />

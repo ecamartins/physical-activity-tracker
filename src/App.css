@@ -1,3 +1,7 @@
 .app-wrapper {
   width: 100%
 }
+
+.MuiDataGrid-columnHeaderTitle {
+  font-weight: bold !important;
+}
