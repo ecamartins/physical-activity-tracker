@@ -1,0 +1,24 @@
+.app-wrapper {
+  width: 100%
+}
+
+.MuiDataGrid-columnHeaderTitle {
+  font-weight: bold !important;
+}
+
+.home-page-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .home-page-site-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-page-site-description {
+    text-align: center;
+  }
+}
