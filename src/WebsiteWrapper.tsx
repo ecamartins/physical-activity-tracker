@@ -9,7 +9,6 @@ import { Logout } from "./Logout"
 import NavBar from "./NavBar"
 import { Profile } from "./Profile"
 import { supabase } from "./supabaseClient"
-import "./App.css";
 
 export enum AppPageType {
     HOME,
