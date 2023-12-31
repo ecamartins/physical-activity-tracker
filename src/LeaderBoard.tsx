@@ -19,10 +19,10 @@ export const LeaderBoard: React.FC<LeaderBoardProps> = ({ show }) => {
     const [board, setBoardData] = useState<Database["public"]["Functions"]["get_leaderboard"]["Returns"]>([]);
 
     const getLeaderboardData = async () => {
-        const { data: leader_board_info, error } = await supabase
-            .rpc('get_leaderboard', { start_date: "2023-07-01", end_date: "2023-12-06" })
+        const { data: leaderboardInfo, error } = await supabase
+            .rpc('get_leaderboard', { start_date: "2023-07-01", end_date: "2023-12-31" })
         if (!error) {
-            setBoardData(leader_board_info ? leader_board_info : []);
+            setBoardData(leaderboardInfo ? leaderboardInfo : []);
         }
     }
     useEffect(() => {

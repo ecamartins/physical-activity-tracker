@@ -1,40 +1,47 @@
 .app-wrapper {
   width: 100%;
   height: 100vh;
-}
 
-.MuiDataGrid-columnHeaderTitle {
-  font-weight: bold !important;
-}
+  .activity-log-add-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
 
-.home-page-content-wrapper {
-  display: grid;
-  grid-template-rows: 20% 60% 20%;
-  height: 100%;
+  .home-page-content-wrapper {
+    display: grid;
+    grid-template-rows: 20% 60% 20%;
+    height: 100%;
+    padding: 0 8px 0 8px;
 
-  padding: 0 8px 0 8px;
+    .home-page-content {
+      grid-row-start: 2;
+      grid-row-end: 3;
 
-  .home-page-content {
-    grid-row-start: 2;
-    grid-row-end: 3;
+      .home-page-site-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .home-page-site-title {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      .home-page-site-description {
+        text-align: center;
+        font-family: monospace;
 
-    .home-page-site-description {
-      text-align: center;
-      font-family: monospace;
-
-      #home-page-leaderboard-link {
-        &:hover {
-          cursor: pointer;
-          text-decoration: underline;
+        #home-page-leaderboard-link {
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
         }
       }
     }
   }
+}
 
+
+
+.MuiDataGrid-columnHeaderTitle {
+  font-weight: bold !important;
 }

@@ -20,7 +20,7 @@ export enum AppPageType {
 }
 
 function WebsiteWrapper() {
-    const [session, setSession] = useState<Session | null>()
+    const [session, setSession] = useState<Session | null>(null)
     const [page, setPage] = useState<AppPageType>(AppPageType.HOME);
 
     useEffect(() => {
@@ -41,7 +41,7 @@ function WebsiteWrapper() {
             <Profile show={page === AppPageType.PROFILE} />
             <LeaderBoard show={page === AppPageType.LEADERBOARD} />
             <Login show={page === AppPageType.LOGIN} />
-            <ActivityLog show={page === AppPageType.LOG} />
+            <ActivityLog show={page === AppPageType.LOG} session={session} />
             <Logout show={page === AppPageType.LOGOUT} />
         </div>
     )
