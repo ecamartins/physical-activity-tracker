@@ -5,7 +5,6 @@ import { ActivityLog } from "./ActivityLog"
 import { HomePage } from "./HomePage"
 import { LeaderBoard } from "./LeaderBoard"
 import { Login } from "./Login"
-import { Logout } from "./Logout"
 import NavBar from "./NavBar"
 import { Profile } from "./Profile"
 import { supabase } from "./supabaseClient"
@@ -33,6 +32,21 @@ function WebsiteWrapper() {
         })
     }, [])
 
+    useEffect(() => {
+        if (page === AppPageType.LOGOUT) {
+            const logOut = async () => {
+                const { error } = await supabase.auth.signOut();
+                if (error) {
+                    alert("Error when attempting to log out.")
+                } else {
+                    setPage(AppPageType.HOME);
+                };
+            }
+
+            logOut();
+        }
+    }, [page]);
+
     return (
         <div className="app-wrapper">
             <CssBaseline />
@@ -42,7 +56,6 @@ function WebsiteWrapper() {
             <LeaderBoard show={page === AppPageType.LEADERBOARD} />
             <Login show={page === AppPageType.LOGIN} />
             <ActivityLog show={page === AppPageType.LOG} session={session} />
-            <Logout show={page === AppPageType.LOGOUT} />
         </div>
     )
 }
