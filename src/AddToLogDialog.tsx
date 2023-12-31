@@ -3,6 +3,7 @@ import { Session } from "@supabase/supabase-js";
 import { DateTime } from "luxon";
 import React, { useEffect, useState } from "react";
 import { Database } from "../database-types";
+import { AddNewActivityDialog } from "./addNewActivityDialog";
 import { supabase } from "./supabaseClient";
 import { formatDate, getStartOfWeek } from "./utils";
 
@@ -15,6 +16,7 @@ interface AddToLogDialogProps {
 type ActivityRecord = Database["public"]["Tables"]["activities"]["Row"];
 
 const WEEK_LENGTH = 7;
+const ADD_NEW_ACTIVITY = 0;
 
 export const AddToLogDialog: React.FC<AddToLogDialogProps> = React.memo(({ show, session, onCloseClick }) => {
     const today = DateTime.now();
@@ -24,6 +26,7 @@ export const AddToLogDialog: React.FC<AddToLogDialogProps> = React.memo(({ show,
     const [selectedActivityId, setselectedActivityId] = useState<string>("");
     const [selectedDateOffset, setSelectedDateOffset] = useState<number>(today.weekday % WEEK_LENGTH);
     const [duration, setDuration] = useState<number>(1);
+    const [addNewActivity, setAddNewActivity] = useState<boolean>(false);
 
 
     const getWeekdays = () => {
@@ -59,16 +62,19 @@ export const AddToLogDialog: React.FC<AddToLogDialogProps> = React.memo(({ show,
 
     useEffect(() => {
         getActivities();
-    }, []);
+    }, [addNewActivity]);
 
     const activityDropDownItems = () => {
-        return activities.map((entry, idx) => <MenuItem key={idx} value={entry.activity_id}>{entry.activity_name}</MenuItem>);
+        return activities.map((entry, idx) => <MenuItem key={idx + 1} value={entry.activity_id}>{entry.activity_name}</MenuItem>);
 
     }
 
     const handleActivitySelection = (event: SelectChangeEvent) => {
-        console.log(event.target.value);
-        setselectedActivityId(event.target.value);
+        if (String(ADD_NEW_ACTIVITY) == event.target.value) {
+            setAddNewActivity(true);
+        } else {
+            setselectedActivityId(event.target.value);
+        }
     }
 
     if (!show) return <></>;
@@ -78,12 +84,14 @@ export const AddToLogDialog: React.FC<AddToLogDialogProps> = React.memo(({ show,
         onCloseClick();
     }
 
+    if (addNewActivity) return <AddNewActivityDialog onCloseClick={() => setAddNewActivity(false)} />
+
     return (
         <>
             <Dialog open={show} onClose={() => onCloseClick()} fullWidth>
                 <DialogTitle>Add to log</DialogTitle>
                 <DialogContent>
-                    <FormControl fullWidth sx={{ marginTop: 1 }}>
+                    <><FormControl fullWidth sx={{ marginTop: 1 }}>
                         <InputLabel id="activity-select-label">Activity</InputLabel>
                         <Select
                             labelId="activity-select-label"
@@ -93,39 +101,40 @@ export const AddToLogDialog: React.FC<AddToLogDialogProps> = React.memo(({ show,
                             onChange={handleActivitySelection}
                         >
                             {activityDropDownItems()}
+                            <MenuItem key={ADD_NEW_ACTIVITY} value={ADD_NEW_ACTIVITY}>--- add new activity ---</MenuItem>
                         </Select>
                     </FormControl>
-                    <TextField
-                        id="filled-number"
-                        label="Duration (min)"
-                        type="number"
-                        InputProps={{ inputProps: { min: 1, max: 500 } }}
-                        fullWidth
-                        sx={{ marginTop: 2 }}
-                        value={String(duration)}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            setDuration(Number(event.target.value))
-                        }}
-                    />
-                    <FormControl fullWidth sx={{ marginTop: 2 }}>
-                        <InputLabel id="date-select-label">Date</InputLabel>
-                        <Select
-                            labelId="date-select-label"
-                            label="date-select"
-                            id="date-select"
-                            placeholder="Date"
-                            value={String(selectedDateOffset)}
-                            onChange={(e: SelectChangeEvent) => {
-                                setSelectedDateOffset(Number(e.target.value))
+                        <TextField
+                            id="filled-number"
+                            label="Duration (min)"
+                            type="number"
+                            InputProps={{ inputProps: { min: 1, max: 500 } }}
+                            fullWidth
+                            sx={{ marginTop: 2 }}
+                            value={String(duration)}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                setDuration(Number(event.target.value))
                             }}
-                        >
-                            {getWeekdays()}
-                        </Select>
-                    </FormControl>
+                        />
+                        <FormControl fullWidth sx={{ marginTop: 2 }}>
+                            <InputLabel id="date-select-label">Date</InputLabel>
+                            <Select
+                                labelId="date-select-label"
+                                label="date-select"
+                                id="date-select"
+                                placeholder="Date"
+                                value={String(selectedDateOffset)}
+                                onChange={(e: SelectChangeEvent) => {
+                                    setSelectedDateOffset(Number(e.target.value))
+                                }}
+                            >
+                                {getWeekdays()}
+                            </Select>
+                        </FormControl></>
                 </DialogContent>
                 <DialogActions style={{ justifyContent: "space-between" }}>
                     <Button onClick={() => onCloseClick()}>Cancel</Button>
-                    <Button disabled={selectedActivityId === ""} onClick={() => onAddClick()}>Add</Button>
+                    <Button disabled={!(Number(selectedActivityId) > ADD_NEW_ACTIVITY)} onClick={() => onAddClick()}>Add</Button>
                 </DialogActions>
             </Dialog>
         </>);
