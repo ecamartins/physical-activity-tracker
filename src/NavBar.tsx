@@ -41,7 +41,11 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
 
     const getMenuItems = () => {
         const items = Object.entries(AppPageType).filter(([_, value]) =>
-            isNaN(Number(value)) && value !== AppPageType[AppPageType.HOME] && value !== AppPageType[AppPageType.LOGIN] && value !== AppPageType[AppPageType.LEADERBOARD]
+            isNaN(Number(value)) &&
+            value !== AppPageType[AppPageType.HOME] &&
+            value !== AppPageType[AppPageType.LOGIN] &&
+            value !== AppPageType[AppPageType.LEADERBOARD] &&
+            value !== AppPageType[AppPageType.LOG]
         ).map(([key, value]) => {
             return (<MenuItem key={value} onClick={() => onNavBarClick(Number(key) as AppPageType)}>
                 <Typography textAlign="center">{value}</Typography>
@@ -107,6 +111,9 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                             {<MenuItem key={AppPageType["LEADERBOARD"]} onClick={() => handleCloseNavMenu(AppPageType.LEADERBOARD)}>
                                 <Typography textAlign="center">{AppPageType[AppPageType["LEADERBOARD"]]}</Typography>
                             </MenuItem>}
+                            {showProfile && <MenuItem key={AppPageType["LOG"]} onClick={() => handleCloseNavMenu(AppPageType.LOG)}>
+                                <Typography textAlign="center">{"ACTIVITY LOG"}</Typography>
+                            </MenuItem>}
                         </Menu>
                     </Box>
                     <DirectionsRunIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} style={{ cursor: "pointer" }} />
@@ -132,6 +139,9 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {<MenuItem key={AppPageType["LEADERBOARD"]} onClick={() => handleCloseNavMenu(AppPageType.LEADERBOARD)}>
                             <Typography textAlign="center">{AppPageType[AppPageType["LEADERBOARD"]]}</Typography>
+                        </MenuItem>}
+                        {showProfile && <MenuItem key={AppPageType["LOG"]} onClick={() => handleCloseNavMenu(AppPageType.LOG)}>
+                            <Typography textAlign="center">{"ACTIVITY LOG"}</Typography>
                         </MenuItem>}
                     </Box>
 
