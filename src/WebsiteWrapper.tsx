@@ -37,7 +37,7 @@ function WebsiteWrapper() {
         <div className="app-wrapper">
             <CssBaseline />
             <NavBar showProfile={!!session} onNavBarClick={(newPage: AppPageType) => setPage(newPage)} />
-            <HomePage show={page === AppPageType.HOME} />
+            <HomePage show={page === AppPageType.HOME} onLinkClick={(newPage: AppPageType) => setPage(newPage)} />
             <Profile show={page === AppPageType.PROFILE} />
             <LeaderBoard show={page === AppPageType.LEADERBOARD} />
             <Login show={page === AppPageType.LOGIN} />

@@ -60,7 +60,6 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -69,6 +68,7 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            cursor: 'pointer'
                         }}
                         onClick={() => handleCloseNavMenu(AppPageType.HOME)}
                     >
@@ -114,7 +114,6 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -124,6 +123,7 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            cursor: 'pointer'
                         }}
                         onClick={() => handleCloseNavMenu(AppPageType.HOME)}
                     >
