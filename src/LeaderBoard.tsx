@@ -20,14 +20,14 @@ export const LeaderBoard: React.FC<LeaderBoardProps> = ({ show }) => {
 
     const getLeaderboardData = async () => {
         const { data: leaderboardInfo, error } = await supabase
-            .rpc('get_leaderboard', { start_date: "2023-07-01", end_date: "2023-12-31" })
+            .rpc('get_leaderboard', { start_date: "2023-07-01", end_date: "2024-01-06" })
         if (!error) {
             setBoardData(leaderboardInfo ? leaderboardInfo : []);
         }
     }
     useEffect(() => {
         getLeaderboardData();
-    }, []);
+    }, [show]);
 
     const leaderBoardRows = () => {
         return board.map((entry, idx) => ({ id: idx + 1, name: `${entry.first_name} ${entry.last_name}`, total: entry.total }));

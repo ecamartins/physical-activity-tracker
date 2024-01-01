@@ -79,8 +79,8 @@ export const AddToLogDialog: React.FC<AddToLogDialogProps> = React.memo(({ show,
 
     if (!show) return <></>;
 
-    const onAddClick = async () => {
-        await insertLogEntry();
+    const onAddClick = () => {
+        insertLogEntry();
         onCloseClick();
     }
 

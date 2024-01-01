@@ -21,27 +21,29 @@ interface ActivityLogProps {
 type UserRecord = Database["public"]["Views"]["user_records"]["Row"];
 type LogRecord = Omit<UserRecord, "user_id">
 
-export const ActivityLog: React.FC<ActivityLogProps> = React.memo(({ show, session }) => {
+export const ActivityLog: React.FC<ActivityLogProps> = ({ show, session }) => {
     const [logData, setLogData] = useState<LogRecord[]>([]);
     const [openAddToLogDialog, setAddToLogDialogVisibility] = useState<boolean>(false);
 
-    const getLogData = async () => {
-        const { data: logRecords, error } = await supabase
-            .from("user_records")
-            .select("activity_name, date, duration")
-            .eq("user_id", session!.user.id);
-
-        if (!error) {
-            setLogData(logRecords ? logRecords : []);
-        }
-    }
 
     useEffect(() => {
         // Only attempt to fetch log data if we have a valid session!
-        if (session) getLogData();
-    }, [openAddToLogDialog]);
+        if (session !== null) {
+            const getLogData = async () => {
+                const { data: logRecords, error } = await supabase
+                    .from("user_records")
+                    .select("activity_name, date, duration")
+                    .eq("user_id", session!.user.id);
 
-    const leaderLogRows = () => {
+                if (!error) {
+                    setLogData(logRecords ? logRecords : []);
+                }
+            }
+            getLogData();
+        }
+    }, [openAddToLogDialog, session]);
+
+    const getLogRows = () => {
         return logData.map((entry, idx) => ({ id: idx, activity: entry.activity_name, date: entry.date, duration: entry.duration }));
 
     }
@@ -66,7 +68,7 @@ export const ActivityLog: React.FC<ActivityLogProps> = React.memo(({ show, sessi
             </div>
             <AddToLogDialog show={openAddToLogDialog} onCloseClick={() => setAddToLogDialogVisibility(false)} session={session} />
             <DataGrid
-                rows={leaderLogRows()}
+                rows={getLogRows()}
                 columns={columns}
                 initialState={{
                     pagination: {
@@ -76,4 +78,4 @@ export const ActivityLog: React.FC<ActivityLogProps> = React.memo(({ show, sessi
                 pageSizeOptions={[5, 10]}
             />
         </Container>);
-})
+}
