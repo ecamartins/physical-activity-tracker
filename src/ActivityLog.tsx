@@ -1,7 +1,7 @@
 import { Container, Box, Typography, Button } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Session } from "@supabase/supabase-js";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Database } from "../database-types";
 import { supabase } from "./supabaseClient";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -48,6 +48,12 @@ export const ActivityLog: React.FC<ActivityLogProps> = ({ show, session }) => {
 
     }
 
+    const totalMinutes = useMemo(() => {
+        return logData.reduce(
+            (accum, cur) => accum + cur.duration!, 0,
+        );
+    }, [logData])
+
     if (!show) return <></>;
 
     return (
@@ -58,6 +64,7 @@ export const ActivityLog: React.FC<ActivityLogProps> = ({ show, session }) => {
                 </Typography>
             </Box>
             <div className="activity-log-add-wrapper">
+                <span>Total: {totalMinutes}min</span>
                 <Button
                     size="small"
                     variant="contained"

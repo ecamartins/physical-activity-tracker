@@ -12,7 +12,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import { AppPageType } from './WebsiteWrapper';
+import { Logout } from '@mui/icons-material';
 
 interface ResponsiveAppBarProps {
     showProfile: boolean;
@@ -168,7 +170,18 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {getMenuItems()}
+                                    <MenuItem key={AppPageType[AppPageType["PROFILE"]]} onClick={() => onNavBarClick(AppPageType.PROFILE)}>
+                                        <ListItemIcon>
+                                            <Avatar sx={{ marginRight: 2, width: 20, height: 20 }} />
+                                        </ListItemIcon>
+                                        <Typography textAlign="center">{AppPageType[AppPageType["PROFILE"]]}</Typography>
+                                    </MenuItem>
+                                    <MenuItem key={AppPageType[AppPageType["LOGOUT"]]} onClick={() => onNavBarClick(AppPageType.LOGOUT)}>
+                                        <ListItemIcon>
+                                            <Logout fontSize="small" />
+                                        </ListItemIcon>
+                                        <Typography textAlign="center">{AppPageType[AppPageType["LOGOUT"]]}</Typography>
+                                    </MenuItem>
                                 </Menu></> : <Button size="small" variant="outlined" style={{ backgroundColor: "white" }} onClick={() => onNavBarClick(AppPageType.LOGIN)}>LOGIN</Button>}
                     </Box>
                 </Toolbar>
