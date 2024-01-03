@@ -12,7 +12,7 @@ const columns: GridColDef[] = [
 ];
 
 interface LeaderBoardProps {
-    show: boolean
+    show: boolean;
 }
 
 export const LeaderBoard: React.FC<LeaderBoardProps> = ({ show }) => {

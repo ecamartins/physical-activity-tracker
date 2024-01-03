@@ -18,10 +18,12 @@ import { Logout } from '@mui/icons-material';
 
 interface ResponsiveAppBarProps {
     showProfile: boolean;
+    validProfile: boolean;
+    avatarLetter: string;
     onNavBarClick: (page: AppPageType) => void;
 }
 
-function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps) {
+function ResponsiveAppBar({ showProfile, validProfile, avatarLetter, onNavBarClick }: ResponsiveAppBarProps) {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -39,22 +41,6 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
-    };
-
-    const getMenuItems = () => {
-        const items = Object.entries(AppPageType).filter(([_, value]) =>
-            isNaN(Number(value)) &&
-            value !== AppPageType[AppPageType.HOME] &&
-            value !== AppPageType[AppPageType.LOGIN] &&
-            value !== AppPageType[AppPageType.LEADERBOARD] &&
-            value !== AppPageType[AppPageType.LOG]
-        ).map(([key, value]) => {
-            return (<MenuItem key={value} onClick={() => onNavBarClick(Number(key) as AppPageType)}>
-                <Typography textAlign="center">{value}</Typography>
-            </MenuItem>)
-        });
-
-        return items;
     };
 
     return (
@@ -113,7 +99,7 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                             {<MenuItem key={AppPageType["LEADERBOARD"]} onClick={() => handleCloseNavMenu(AppPageType.LEADERBOARD)}>
                                 <Typography textAlign="center">{AppPageType[AppPageType["LEADERBOARD"]]}</Typography>
                             </MenuItem>}
-                            {showProfile && <MenuItem key={AppPageType["LOG"]} onClick={() => handleCloseNavMenu(AppPageType.LOG)}>
+                            {(showProfile && validProfile) && <MenuItem key={AppPageType["LOG"]} onClick={() => handleCloseNavMenu(AppPageType.LOG)}>
                                 <Typography textAlign="center">{"ACTIVITY LOG"}</Typography>
                             </MenuItem>}
                         </Menu>
@@ -142,7 +128,7 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                         {<MenuItem key={AppPageType["LEADERBOARD"]} onClick={() => handleCloseNavMenu(AppPageType.LEADERBOARD)}>
                             <Typography textAlign="center">{AppPageType[AppPageType["LEADERBOARD"]]}</Typography>
                         </MenuItem>}
-                        {showProfile && <MenuItem key={AppPageType["LOG"]} onClick={() => handleCloseNavMenu(AppPageType.LOG)}>
+                        {(showProfile && validProfile) && <MenuItem key={AppPageType["LOG"]} onClick={() => handleCloseNavMenu(AppPageType.LOG)}>
                             <Typography textAlign="center">{"ACTIVITY LOG"}</Typography>
                         </MenuItem>}
                     </Box>
@@ -151,7 +137,7 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                         {showProfile ?
                             <><Tooltip title="Open user options">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar>E</Avatar>
+                                    {avatarLetter ? <Avatar>{avatarLetter}</Avatar> : <Avatar />}
                                 </IconButton>
                             </Tooltip>
                                 <Menu
@@ -170,7 +156,10 @@ function ResponsiveAppBar({ showProfile, onNavBarClick }: ResponsiveAppBarProps)
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    <MenuItem key={AppPageType[AppPageType["PROFILE"]]} onClick={() => onNavBarClick(AppPageType.PROFILE)}>
+                                    <MenuItem key={AppPageType[AppPageType["PROFILE"]]} onClick={() => {
+                                        validProfile ? onNavBarClick(AppPageType.PROFILE) : onNavBarClick(AppPageType.PROFILE_SETUP)
+                                    }
+                                    }>
                                         <ListItemIcon>
                                             <Avatar sx={{ marginRight: 2, width: 20, height: 20 }} />
                                         </ListItemIcon>
