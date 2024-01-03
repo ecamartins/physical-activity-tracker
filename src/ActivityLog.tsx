@@ -33,7 +33,8 @@ export const ActivityLog: React.FC<ActivityLogProps> = ({ show, session }) => {
                 const { data: logRecords, error } = await supabase
                     .from("user_records")
                     .select("activity_name, date, duration")
-                    .eq("user_id", session!.user.id);
+                    .eq("user_id", session!.user.id)
+                    .order("date", { ascending: true });
 
                 if (!error) {
                     setLogData(logRecords ? logRecords : []);
