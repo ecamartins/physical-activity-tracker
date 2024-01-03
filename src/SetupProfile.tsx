@@ -44,7 +44,7 @@ export const SetupProfile: React.FC<SetupProfileProps> = React.memo(({ show, ses
             }}
         >
             <Avatar sx={{ m: 1, bgcolor: 'primary.main' }} />
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" className="page-title">
                 Finish Profile Setup
             </Typography>
             <Box component="form" noValidate sx={{ mt: 3 }}>

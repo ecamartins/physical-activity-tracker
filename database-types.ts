@@ -24,35 +24,6 @@ export interface Database {
         }
         Relationships: []
       }
-      profiles: {
-        Row: {
-          created_at: string
-          display_name: string | null
-          email: string | null
-          id: string
-        }
-        Insert: {
-          created_at?: string
-          display_name?: string | null
-          email?: string | null
-          id: string
-        }
-        Update: {
-          created_at?: string
-          display_name?: string | null
-          email?: string | null
-          id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       records: {
         Row: {
           activity_id: number
@@ -139,6 +110,19 @@ export interface Database {
       }
     }
     Functions: {
+      get_activity_log: {
+        Args: {
+          start_date: string
+          end_date: string
+          id: string
+        }
+        Returns: {
+          record_id: number
+          activity_name: string
+          date: string
+          duration: number
+        }[]
+      }
       get_leaderboard: {
         Args: {
           start_date: string

@@ -40,7 +40,7 @@ export const Login: React.FC<LoginProps> = React.memo(({ show }) => {
             >
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography component="h1" variant="h5" className="page-title">
                     Login / Register
                 </Typography>
                 <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>

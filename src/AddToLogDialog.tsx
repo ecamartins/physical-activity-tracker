@@ -13,7 +13,7 @@ interface AddToLogDialogProps {
     onCloseClick: () => void;
 }
 
-type ActivityRecord = Database["public"]["Tables"]["activities"]["Row"];
+export type ActivityRecord = Database["public"]["Tables"]["activities"]["Row"];
 
 const WEEK_LENGTH = 7;
 const ADD_NEW_ACTIVITY = 0;
@@ -27,7 +27,6 @@ export const AddToLogDialog: React.FC<AddToLogDialogProps> = React.memo(({ show,
     const [selectedDateOffset, setSelectedDateOffset] = useState<number>(today.weekday % WEEK_LENGTH);
     const [duration, setDuration] = useState<number>(1);
     const [addNewActivity, setAddNewActivity] = useState<boolean>(false);
-
 
     const getWeekdays = () => {
         let weekdays = [];

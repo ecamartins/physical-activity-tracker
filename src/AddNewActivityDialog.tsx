@@ -20,7 +20,15 @@ export const AddNewActivityDialog: React.FC<AddNewActivityDialogProps> = React.m
     }
 
     const onAddClick = async () => {
-        await insertNewActivity();
+        let activityExists = false;
+        // for (let idx = 0; idx < activities.length; idx++) {
+        //     if (activities[idx].activity_name === newActivity) {
+        //         activityExists = true;
+        //         break;
+        //     }
+        // }
+        if (!activityExists) await insertNewActivity();
+
         onCloseClick();
     }
 
@@ -36,7 +44,7 @@ export const AddNewActivityDialog: React.FC<AddNewActivityDialogProps> = React.m
                     sx={{ marginTop: 2 }}
                     value={newActivity}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        setNewActivity(event.target.value)
+                        setNewActivity(event.target.value.toLocaleLowerCase())
                     }}
                 />
             </DialogContent>

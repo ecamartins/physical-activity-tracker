@@ -6,6 +6,9 @@ import { Database } from "../database-types";
 import { supabase } from "./supabaseClient";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { AddToLogDialog } from "./AddToLogDialog";
+import { DateRangeInfo, DateSelector } from "./DateSelector";
+import { getStartOfWeek } from "./utils";
+import { DateTime } from "luxon";
 
 const columns: GridColDef[] = [
     { field: 'activity', headerName: 'Activity', flex: 1, align: "center", headerAlign: "center", headerClassName: 'activity-log-table-header' },
@@ -18,12 +21,14 @@ interface ActivityLogProps {
     session: Session | null;
 }
 
-type UserRecord = Database["public"]["Views"]["user_records"]["Row"];
-type LogRecord = Omit<UserRecord, "user_id">
+type LogRecord = Database["public"]["Functions"]["get_activity_log"]["Returns"];
 
 export const ActivityLog: React.FC<ActivityLogProps> = ({ show, session }) => {
-    const [logData, setLogData] = useState<LogRecord[]>([]);
+    const [logData, setLogData] = useState<LogRecord>([]);
     const [openAddToLogDialog, setAddToLogDialogVisibility] = useState<boolean>(false);
+    const startOfWeek = getStartOfWeek(DateTime.now());
+    const endOfWeek = startOfWeek.minus({ days: -7 });
+    const [dateRange, setDateRange] = useState<DateRangeInfo>({ startDate: startOfWeek, endDate: endOfWeek })
 
 
     useEffect(() => {
@@ -31,18 +36,15 @@ export const ActivityLog: React.FC<ActivityLogProps> = ({ show, session }) => {
         if (session !== null) {
             const getLogData = async () => {
                 const { data: logRecords, error } = await supabase
-                    .from("user_records")
-                    .select("activity_name, date, duration")
-                    .eq("user_id", session!.user.id)
-                    .order("date", { ascending: true });
-
+                    .rpc('get_activity_log', { start_date: dateRange.startDate.toFormat("yyyy-MM-dd"), end_date: dateRange.endDate.toFormat("yyyy-MM-dd"), id: session.user.id })
                 if (!error) {
                     setLogData(logRecords ? logRecords : []);
                 }
             }
             getLogData();
+
         }
-    }, [openAddToLogDialog, session]);
+    }, [openAddToLogDialog, session, dateRange]);
 
     const getLogRows = () => {
         return logData.map((entry, idx) => ({ id: idx, activity: entry.activity_name, date: entry.date, duration: entry.duration }));
@@ -60,12 +62,13 @@ export const ActivityLog: React.FC<ActivityLogProps> = ({ show, session }) => {
     return (
         <Container component="main">
             <Box sx={{ margin: 2 }}>
-                <Typography component="h1" variant="h5" align="center">
+                <Typography component="h1" variant="h5" align="center" className="page-title">
                     Activity Log
                 </Typography>
             </Box>
+            <DateSelector sendDateRange={(dateRange: DateRangeInfo) => setDateRange(dateRange)} />
             <div className="activity-log-add-wrapper">
-                <span>Total: {totalMinutes}min</span>
+                <span className="activity-log-total-minutes"><span id="activity-log-total">Total:</span> {totalMinutes}min</span>
                 <Button
                     size="small"
                     variant="contained"

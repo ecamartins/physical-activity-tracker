@@ -7,6 +7,12 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+
+    .activity-log-total-minutes {
+      #activity-log-total {
+        font-weight: bold;
+      }
+    }
   }
 
   .home-page-content-wrapper {
@@ -53,4 +59,9 @@
 .alert-link {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.page-title {
+  font-family: monospace !important;
+  font-weight: 700 !important;
 }

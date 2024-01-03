@@ -20,13 +20,13 @@ export const Profile: React.FC<ProfileProps> = React.memo(({ show, firstName, la
                 <Container component="main">
                     <Box
                         sx={{
-                            marginTop: 4,
+                            marginTop: 2,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
                         }}
                     >
-                        <Typography component="h1" variant="h5" align="center">
+                        <Typography component="h1" variant="h5" align="center" className="page-title">
                             Profile
                         </Typography>
                         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }} />
@@ -34,20 +34,16 @@ export const Profile: React.FC<ProfileProps> = React.memo(({ show, firstName, la
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <List>
                             <ListItem >
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <ContactPageIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={`${firstName} ${lastName}`} />
-                                </ListItemButton>
+                                <ListItemIcon>
+                                    <ContactPageIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={`${firstName} ${lastName}`} />
                             </ListItem>
                             <ListItem >
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <EmailIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={email} />
-                                </ListItemButton>
+                                <ListItemIcon>
+                                    <EmailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={email} />
                             </ListItem>
                         </List>
                     </Box>
