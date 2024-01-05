@@ -10,16 +10,22 @@ const SATURDAY = 6;
 export function getStartOfWeek(today: DateTime) {
     var offset = 0;
     switch (today.weekday) {
+        // @ts-ignore
         case SATURDAY:
             offset++;
+        // @ts-ignore
         case FRIDAY:
             offset++;
+        // @ts-ignore
         case THURSDAY:
             offset++;
+        // @ts-ignore
         case WEDNESDAY:
             offset++;
+        // @ts-ignore
         case TUESDAY:
             offset++;
+        // @ts-ignore
         case MONDAY:
             offset++;
         default: // it's Sunday, so offset = 0

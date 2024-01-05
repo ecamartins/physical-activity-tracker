@@ -3,7 +3,7 @@ import { Session } from "@supabase/supabase-js";
 import { DateTime } from "luxon";
 import React, { useEffect, useState } from "react";
 import { Database } from "../database-types";
-import { AddNewActivityDialog } from "./addNewActivityDialog";
+import { AddNewActivityDialog } from "./AddNewActivityDialog";
 import { supabase } from "./supabaseClient";
 import { formatDate, getStartOfWeek } from "./utils";
 
