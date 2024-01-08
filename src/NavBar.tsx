@@ -64,7 +64,7 @@ function ResponsiveAppBar({ showProfile, validProfile, avatarLetter, onNavBarCli
                         }}
                         onClick={() => handleCloseNavMenu(AppPageType.HOME)}
                     >
-                        MvtTracker
+                        MvmtTracker
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -122,7 +122,7 @@ function ResponsiveAppBar({ showProfile, validProfile, avatarLetter, onNavBarCli
                         }}
                         onClick={() => handleCloseNavMenu(AppPageType.HOME)}
                     >
-                        MvtTracker
+                        MvmtTracker
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {<MenuItem key={AppPageType["LEADERBOARD"]} onClick={() => handleCloseNavMenu(AppPageType.LEADERBOARD)}>

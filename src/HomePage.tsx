@@ -30,10 +30,10 @@ export const HomePage: React.FC<HomePageProps> = React.memo(({ show, onLinkClick
                             fontSize: 50
                         }}
                     >
-                        MvtTracker
+                        MvmtTracker
                     </Typography>
                 </div>
-                <p className="home-page-site-description">MvtTracker makes it easy to track your active minutes and to compete with friends.</p>
+                <p className="home-page-site-description">MvmtTracker makes it easy to track your active minutes and to compete with friends.</p>
                 <p className="home-page-site-description">If you don't want to make an account, feel free to checkout the <span id="home-page-leaderboard-link" onClick={() => onLinkClick(AppPageType.LEADERBOARD)}>leaderboard</span>!</p>
             </div>
         </div>
