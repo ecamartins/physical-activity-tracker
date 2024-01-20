@@ -20,15 +20,7 @@ export const AddNewActivityDialog: React.FC<AddNewActivityDialogProps> = React.m
     }
 
     const onAddClick = async () => {
-        let activityExists = false;
-        // for (let idx = 0; idx < activities.length; idx++) {
-        //     if (activities[idx].activity_name === newActivity) {
-        //         activityExists = true;
-        //         break;
-        //     }
-        // }
-        if (!activityExists) await insertNewActivity();
-
+        await insertNewActivity();
         onCloseClick();
     }
 
