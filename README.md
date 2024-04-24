@@ -1,7 +1,7 @@
 # MvmtTracker
 
 ## Project Description
-A web app that enables users to log their weekly active minutes and compare their progress with others on the leaders. Users without an account can only view the leaderboard.
+A web app that enables users to log their weekly active minutes and compare their progress with others on the leaderboard. Users without an account can only view the leaderboard.
 
 ## To Run Locally
 In the root directory, run the command `npm run dev`
