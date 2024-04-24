@@ -5,6 +5,9 @@ This is a full-stack web-application with a React frontend, a Supabase backend, 
 Users with an account can log their daily active minutes on their activity log; they can also browse their activity log history.
 All users can view the leaderboard feature.
 
+## Live App
+See the live app [here](https://physical-activity-tracker.vercel.app/)
+
 ## To Run Locally
 In the root directory, run the command `npm run dev`
 
