@@ -1,7 +1,9 @@
 # MvmtTracker
 
 ## Project Description
-A web app that enables users to log their weekly active minutes and compare their progress with others on the leaderboard. Users without an account can only view the leaderboard.
+This is a full-stack web-application with a React frontend, a Supabase backend, and a PostgreSQL database.
+Users with an account can log their daily active minutes on their activity log; they can also browse their activity log history.
+All users can view the leaderboard feature.
 
 ## To Run Locally
 In the root directory, run the command `npm run dev`
